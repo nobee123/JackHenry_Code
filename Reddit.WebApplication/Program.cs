@@ -1,9 +1,18 @@
+using Reddit.HostedService;
+using Reddit.Models;
+using System.Threading.Channels;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var postChannel = Channel.CreateUnbounded<Post>();
+builder.Services.AddSingleton(postChannel);
+builder.Services.AddHostedService<RedditDataRequestWorker>();
+builder.Services.AddHostedService<PostProcessor>();
 
 var app = builder.Build();
 

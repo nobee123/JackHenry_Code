@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.WebApplication", "Reddit.WebApplication\Reddit.WebApplication.csproj", "{5DECD779-C33D-4288-B09A-A2A253636912}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.HostedService", "Reddit.HostedService\Reddit.HostedService.csproj", "{807CE84B-472C-4A95-B392-8518997CC302}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.Models", "Reddit.Models\Reddit.Models.csproj", "{AFC75B07-512C-49CC-8450-01A016E1CA26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{5DECD779-C33D-4288-B09A-A2A253636912}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DECD779-C33D-4288-B09A-A2A253636912}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DECD779-C33D-4288-B09A-A2A253636912}.Release|Any CPU.Build.0 = Release|Any CPU
+		{807CE84B-472C-4A95-B392-8518997CC302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{807CE84B-472C-4A95-B392-8518997CC302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{807CE84B-472C-4A95-B392-8518997CC302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{807CE84B-472C-4A95-B392-8518997CC302}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFC75B07-512C-49CC-8450-01A016E1CA26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFC75B07-512C-49CC-8450-01A016E1CA26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFC75B07-512C-49CC-8450-01A016E1CA26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFC75B07-512C-49CC-8450-01A016E1CA26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
