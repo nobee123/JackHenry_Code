@@ -1,3 +1,4 @@
+using Reddit.APIClient;
 using Reddit.HostedService;
 using Reddit.Models;
 using System.Threading.Channels;
@@ -13,6 +14,8 @@ var postChannel = Channel.CreateUnbounded<Post>();
 builder.Services.AddSingleton(postChannel);
 builder.Services.AddHostedService<RedditDataRequestWorker>();
 builder.Services.AddHostedService<PostProcessor>();
+
+builder.Services.AddSingleton<IRedditClient, RedditClient>();
 
 var app = builder.Build();
 

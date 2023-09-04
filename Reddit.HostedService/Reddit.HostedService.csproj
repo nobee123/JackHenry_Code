@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Reddit.APIClient\Reddit.APIClient.csproj" />
     <ProjectReference Include="..\Reddit.Models\Reddit.Models.csproj" />
   </ItemGroup>
 

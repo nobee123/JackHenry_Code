@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.HostedService", "Red
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.Models", "Reddit.Models\Reddit.Models.csproj", "{AFC75B07-512C-49CC-8450-01A016E1CA26}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.APIClient", "Reddit.APIClient\Reddit.APIClient.csproj", "{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AFC75B07-512C-49CC-8450-01A016E1CA26}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFC75B07-512C-49CC-8450-01A016E1CA26}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFC75B07-512C-49CC-8450-01A016E1CA26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

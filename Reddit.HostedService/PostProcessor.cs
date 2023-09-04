@@ -36,6 +36,7 @@ namespace Reddit.HostedService
 
         private Task DoSomeWork(Post post)
         {
+            // process the post 
             return Task.CompletedTask;
         }
     }
