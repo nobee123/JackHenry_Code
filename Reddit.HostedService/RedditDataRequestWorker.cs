@@ -28,6 +28,7 @@ namespace Reddit.HostedService
 
             while (!stoppingToken.IsCancellationRequested && await _postChannel.Writer.WaitToWriteAsync())
             {
+                var posts = _redditClient.RetrieveSubredditPosts("funny");
                 await _postChannel.Writer.WriteAsync(new Post());
 
                 await Task.Delay(TimeSpan.FromMilliseconds(10));

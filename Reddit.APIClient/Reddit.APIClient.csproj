@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Reddit.Models\Reddit.Models.csproj" />
+  </ItemGroup>
+
 </Project>
