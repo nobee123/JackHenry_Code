@@ -38,7 +38,7 @@ namespace Reddit.HostedService
             };
 
 
-            while (!stoppingToken.IsCancellationRequested && await _postChannel.Writer.WaitToWriteAsync())
+            while (!stoppingToken.IsCancellationRequested && await _postChannel.Writer.WaitToWriteAsync(stoppingToken))
             {
                 try
                 {
@@ -51,7 +51,7 @@ namespace Reddit.HostedService
                         startingPoint = postData.data.after;
                         foreach (var child in postData.data.children)
                         {
-                            await _postChannel.Writer.WriteAsync(child.data);
+                            await _postChannel.Writer.WriteAsync(child.data, stoppingToken);
                         }
                     }
 
