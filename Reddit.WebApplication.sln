@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.WebApplication", "Reddit.WebApplication\Reddit.WebApplication.csproj", "{5DECD779-C33D-4288-B09A-A2A253636912}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.WebApplication", "Reddit.WebApplication\Reddit.WebApplication.csproj", "{5DECD779-C33D-4288-B09A-A2A253636912}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.HostedService", "Reddit.HostedService\Reddit.HostedService.csproj", "{807CE84B-472C-4A95-B392-8518997CC302}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.HostedService", "Reddit.HostedService\Reddit.HostedService.csproj", "{807CE84B-472C-4A95-B392-8518997CC302}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.Models", "Reddit.Models\Reddit.Models.csproj", "{AFC75B07-512C-49CC-8450-01A016E1CA26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.Models", "Reddit.Models\Reddit.Models.csproj", "{AFC75B07-512C-49CC-8450-01A016E1CA26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.APIClient", "Reddit.APIClient\Reddit.APIClient.csproj", "{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.APIClient", "Reddit.APIClient\Reddit.APIClient.csproj", "{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.Logic", "Reddit.Logic\Reddit.Logic.csproj", "{7A60245F-3EC6-4FD3-A3B8-AAF352983419}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.Repository", "Reddit.Repository\Reddit.Repository.csproj", "{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A60245F-3EC6-4FD3-A3B8-AAF352983419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A60245F-3EC6-4FD3-A3B8-AAF352983419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A60245F-3EC6-4FD3-A3B8-AAF352983419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A60245F-3EC6-4FD3-A3B8-AAF352983419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

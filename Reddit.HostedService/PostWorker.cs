@@ -1,16 +1,19 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Reddit.Logic;
 using Reddit.Models;
 using System.Threading.Channels;
 
 namespace Reddit.HostedService
 {
-    public class PostProcessor : BackgroundService
+    public class PostWorker : BackgroundService
     {
         private readonly Channel<Data> _postChannel;
+        private readonly IPostsProcessor _postProcessor;
 
-        public PostProcessor(Channel<Data> postChannel)
+        public PostWorker(Channel<Data> postChannel, IPostsProcessor postsProcessor)
         {
             _postChannel = postChannel;
+            _postProcessor = postsProcessor;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
@@ -36,7 +39,7 @@ namespace Reddit.HostedService
 
         private Task DoSomeWork(Data post)
         {
-            // process the post 
+            _postProcessor.ProcessPost(post);
             return Task.CompletedTask;
         }
     }

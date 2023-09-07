@@ -1,6 +1,8 @@
 using Reddit.APIClient;
 using Reddit.HostedService;
+using Reddit.Logic;
 using Reddit.Models;
+using Reddit.Repository;
 using System.Threading.Channels;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,10 +15,13 @@ builder.Services.AddSwaggerGen();
 var postChannel = Channel.CreateUnbounded<Data>();
 builder.Services.AddSingleton(postChannel);
 builder.Services.AddHostedService<FunnySubredditWorker>();
-builder.Services.AddHostedService<PostProcessor>();
+builder.Services.AddHostedService<PostWorker>();
 
 builder.Services.AddHttpClient<IPostsRetrieve, PostsRetrieve>();
-
+builder.Services.AddSingleton<IPostsProcessor, PostsProcessor>();
+builder.Services.AddSingleton<IPostWithMostUpVotes , PostWithMostUpVotes>();    
+builder.Services.AddSingleton<IUserWithMostPosts, UserWithMostPosts>();
+builder.Services.AddSingleton<IPostRepository, PostRepository>();
 
 
 var app = builder.Build();

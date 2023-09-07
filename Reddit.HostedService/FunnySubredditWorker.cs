@@ -55,7 +55,7 @@ namespace Reddit.HostedService
                         }
                     }
 
-                    await Task.Delay(TimeSpan.FromMilliseconds(10));
+                    await Task.Delay(TimeSpan.FromMilliseconds(600));
                 }
                 catch(Exception ex) 
                 {
