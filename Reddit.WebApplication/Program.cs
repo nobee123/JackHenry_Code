@@ -10,12 +10,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var postChannel = Channel.CreateUnbounded<Post>();
+var postChannel = Channel.CreateUnbounded<Data>();
 builder.Services.AddSingleton(postChannel);
-builder.Services.AddHostedService<RedditDataRequestWorker>();
+builder.Services.AddHostedService<FunnySubredditWorker>();
 builder.Services.AddHostedService<PostProcessor>();
 
-builder.Services.AddSingleton<IRedditClient, RedditClient>();
+builder.Services.AddHttpClient<IPostsRetrieve, PostsRetrieve>();
+
+
 
 var app = builder.Build();
 

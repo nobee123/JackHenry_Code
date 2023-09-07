@@ -6,9 +6,9 @@ namespace Reddit.HostedService
 {
     public class PostProcessor : BackgroundService
     {
-        private readonly Channel<Post> _postChannel;
+        private readonly Channel<Data> _postChannel;
 
-        public PostProcessor(Channel<Post> postChannel)
+        public PostProcessor(Channel<Data> postChannel)
         {
             _postChannel = postChannel;
         }
@@ -34,7 +34,7 @@ namespace Reddit.HostedService
             }
         }
 
-        private Task DoSomeWork(Post post)
+        private Task DoSomeWork(Data post)
         {
             // process the post 
             return Task.CompletedTask;
