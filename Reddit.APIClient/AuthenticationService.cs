@@ -1,12 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Reddit.APIClient
 {
@@ -17,53 +12,43 @@ namespace Reddit.APIClient
     public class AuthenticationService : IAuthenticationService
     {
         private readonly ILogger<AuthenticationService> _logger;
-        private readonly IConfiguration _configuration;
         private readonly HttpClient _httpClient;
         private readonly string _appId;
         private readonly string _appSecret;
         private readonly string _user;
         private readonly string _password;
+        private readonly string _url;
+        private readonly string _userAgent;
 
         public AuthenticationService(ILogger<AuthenticationService> logger, IConfiguration configuration, HttpClient httpClient)
         {
-            _logger = logger;
-            _configuration = configuration;
+            _logger = logger;        
             _httpClient = httpClient;
 
-            _appId = configuration["AppId"];
-            _appSecret = configuration["AppSecret"];
-            _user = configuration["User"];
-            _password = configuration["Password"];
-
-            _appId = Helper.Helper.GetConfigValue(configuration, "AppId");
-
-            if(string.IsNullOrWhiteSpace(_appId))
-                throw new ArgumentNullException("AppId");
-
-            if (string.IsNullOrWhiteSpace(_appSecret))
-                throw new ArgumentNullException("AppId");
-
-            if (string.IsNullOrWhiteSpace(_user))
-                throw new ArgumentNullException("AppId");
-
-            if (string.IsNullOrWhiteSpace(_password))
-                throw new ArgumentNullException("AppId");
-
+            _appId = Helper.Helper.GetConfigValue(configuration, "AppId"); 
+            _appSecret = Helper.Helper.GetConfigValue(configuration, "AppSecret");
+            _user = Helper.Helper.GetConfigValue(configuration, "User");
+            _password = Helper.Helper.GetConfigValue(configuration, "Password");
+            _url = Helper.Helper.GetConfigValue(configuration, "RedditAccessTokenAPIUrl");
+            _userAgent = Helper.Helper.GetConfigValue(configuration, "UserAgent");
         }
 
         public async Task<string> RetrieveAuthorizationsTokenAsync()
         {
             try
             {
-                using (var request = new HttpRequestMessage(new HttpMethod("POST"), "https://www.reddit.com/api/v1/access_token"))
+
+                using (var request = new HttpRequestMessage(new HttpMethod("POST"), _url))
                 {
+                    var bearToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(_appId + ":" + _appSecret));
                     request.Headers.TryAddWithoutValidation("Authorization", "Basic aDFLaHZINFRyM0YzRmZEX3laUGZpZzpSTG9rcUM1ZHFQclhWRzlIZUF6eWpVejRBVndrNkE=");
+                    request.Headers.Add("User-Agent", _userAgent);
 
                     var contentList = new List<string>
                     {
                         $"grant_type={Uri.EscapeDataString("password")}",
-                        $"username={Uri.EscapeDataString("Prudent_Comedian_624")}",
-                        $"password={Uri.EscapeDataString("mdd$du+P7e/Uk&8")}"
+                        $"username={Uri.EscapeDataString(_user)}",
+                        $"password={Uri.EscapeDataString(_password)}"
                     };
                     request.Content = new StringContent(string.Join("&", contentList));
                     request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
@@ -73,10 +58,10 @@ namespace Reddit.APIClient
                     if (response.IsSuccessStatusCode)
                     {
                         return await response.Content.ReadAsStringAsync();
-                    }                    
+                    }
 
                     throw new Exception($"Authentication Service : Failed to token with following Status code: {response?.StatusCode}");
-                }                
+                }
             }
             catch (Exception ex) 
             {

@@ -44,7 +44,7 @@ namespace Reddit.APIClient
                 if (string.IsNullOrWhiteSpace(usedLimit) || string.IsNullOrWhiteSpace(remainingLimit))
                     return false;
 
-                if (Convert.ToInt32(remainingLimit) + 50 > Convert.ToInt32(usedLimit)) 
+                if (Convert.ToInt32(usedLimit) + 50 > Convert.ToInt32(remainingLimit)) 
                     return true;
 
                 return false;

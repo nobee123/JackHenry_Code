@@ -23,6 +23,7 @@ builder.Services.AddSingleton<IPostsProcessor, PostsProcessor>();
 builder.Services.AddSingleton<IPostWithMostUpVotes , PostWithMostUpVotes>();    
 builder.Services.AddSingleton<IUserWithMostPosts, UserWithMostPosts>();
 builder.Services.AddSingleton<IPostRepository, PostRepository>();
+builder.Services.AddSingleton<IRateLimitChecker, RateLimitChecker>();
 
 
 var app = builder.Build();
