@@ -26,5 +26,10 @@
         {
             return this.id.GetHashCode() ^ this.id.GetHashCode();
         }
+
+        public override string ToString()
+        {
+            return $"Id: {id} title: {title} author: {author}";
+        }
     }
 }

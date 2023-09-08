@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System.Text.Json.Nodes;
 
 namespace Reddit.APIClient
 {
@@ -46,15 +45,8 @@ namespace Reddit.APIClient
                 if (string.IsNullOrWhiteSpace(_token))
                 {
                     var jsonData = await _authenticationService.RetrieveAuthorizationsTokenAsync();
-
-                    var token = JsonConvert.DeserializeObject<dynamic>(jsonData);
-
-                    if (token == null)
-                    {
-                        throw new Exception("Post Retrieve : Failed to set access token");
-                    }
+                    var token = JsonConvert.DeserializeObject<dynamic>(jsonData) ?? throw new Exception("Post Retrieve : Failed to set access token");
                     _token = token.access_token;
-
                 }
 
                 using (var request = new HttpRequestMessage(new HttpMethod("GET"), FormatUrl(subreddit, startingPoint)))
