@@ -4,23 +4,23 @@ using Newtonsoft.Json;
 
 namespace Reddit.APIClient
 {
-    public interface IPostsRetrieve
+    public interface IPostsService
     {
         Task<string> RetrieveSubredditPostsAsync(string subreddit, string startingPoint);
     }
-    public class PostsRetrieve : IPostsRetrieve
+    public class PostsService : IPostsService
     {
         private int _numberOfRowToReturn;
         private string _baseUrl;
         private readonly HttpClient _httpClient;
         private readonly IRateLimitChecker _rateLimitChecker;
-        private readonly ILogger<PostsRetrieve> _logger;
+        private readonly ILogger<PostsService> _logger;
         private string _token;
         private readonly IAuthenticationService _authenticationService;
         private int _retrieveTokenRetries;
         private string _userAgent;
 
-        public PostsRetrieve(IConfiguration configuration, HttpClient httpClient, IRateLimitChecker rateLimitChecker, ILogger<PostsRetrieve> logger, IAuthenticationService authenticationService) 
+        public PostsService(IConfiguration configuration, HttpClient httpClient, IRateLimitChecker rateLimitChecker, ILogger<PostsService> logger, IAuthenticationService authenticationService) 
         {
             if (!string.IsNullOrWhiteSpace(configuration["NumberOfRowToReturn"]))
             {

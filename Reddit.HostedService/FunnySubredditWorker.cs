@@ -12,10 +12,10 @@ namespace Reddit.HostedService
     {
         private readonly ILogger<FunnySubredditWorker> _logger;        
         private readonly Channel<Data> _postChannel;
-        private readonly IPostsRetrieve _postsRetrieve;
+        private readonly IPostsService _postsRetrieve;
         private readonly string _subredditName = "funny";
 
-        public FunnySubredditWorker(ILogger<FunnySubredditWorker> logger, Channel<Data> postChannel, IPostsRetrieve postsRetrieve)
+        public FunnySubredditWorker(ILogger<FunnySubredditWorker> logger, Channel<Data> postChannel, IPostsService postsRetrieve)
         {
             _logger = logger;            
             _postChannel = postChannel;

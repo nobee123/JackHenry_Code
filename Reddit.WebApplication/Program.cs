@@ -17,7 +17,7 @@ builder.Services.AddSingleton(postChannel);
 builder.Services.AddHostedService<FunnySubredditWorker>();
 builder.Services.AddHostedService<PostWorker>();
 
-builder.Services.AddHttpClient<IPostsRetrieve, PostsRetrieve>();
+builder.Services.AddHttpClient<IPostsService, PostsService>();
 builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddSingleton<IPostsProcessor, PostsProcessor>();
 builder.Services.AddSingleton<IPostWithMostUpVotes , PostWithMostUpVotes>();    
