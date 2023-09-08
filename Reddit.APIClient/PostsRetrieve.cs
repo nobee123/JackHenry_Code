@@ -1,8 +1,4 @@
-﻿using Reddit.Models;
-using System.Collections.Generic;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
 namespace Reddit.APIClient
@@ -18,7 +14,11 @@ namespace Reddit.APIClient
         private readonly HttpClient _httpClient;
         private readonly IRateLimitChecker _rateLimitChecker;
         private readonly ILogger<PostsRetrieve> _logger;
-        public PostsRetrieve(IConfiguration configuration, HttpClient httpClient, IRateLimitChecker rateLimitChecker, ILogger<PostsRetrieve> logger) 
+        private string _token;
+        private readonly IAuthenticationService _authenticationService;
+        private int _retrieveTokenRetries;
+
+        public PostsRetrieve(IConfiguration configuration, HttpClient httpClient, IRateLimitChecker rateLimitChecker, ILogger<PostsRetrieve> logger, IAuthenticationService authenticationService) 
         {
             if (!string.IsNullOrWhiteSpace(configuration["NumberOfRowToReturn"]))
             {
@@ -33,37 +33,53 @@ namespace Reddit.APIClient
             _httpClient = httpClient;
             _rateLimitChecker = rateLimitChecker;
             _logger = logger;
+            _authenticationService = authenticationService;
         }
         
         public async Task<string> RetrieveSubredditPostsAsync(string subreddit, string startingPoint)
         {
             try
-            {
-                var requestMessage = new HttpRequestMessage
+            {                
+                if (string.IsNullOrWhiteSpace(_token))
                 {
-                    Method = HttpMethod.Get,
-                    RequestUri = new Uri($"https://oauth.reddit.com/r/funny/new?limit=100&after={startingPoint}")
-                };
-
-                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJSUzI1NiIsImtpZCI6IlNIQTI1NjpzS3dsMnlsV0VtMjVmcXhwTU40cWY4MXE2OWFFdWFyMnpLMUdhVGxjdWNZIiwidHlwIjoiSldUIn0.eyJzdWIiOiJ1c2VyIiwiZXhwIjoxNjk0MTU2MjI4LjIyNjM4MSwiaWF0IjoxNjk0MDY5ODI4LjIyNjM4MSwianRpIjoibm5DNXdkLWxjdDlPRi1UZnd2WktjRHhJal9CODN3IiwiY2lkIjoiaDFLaHZINFRyM0YzRmZEX3laUGZpZyIsImxpZCI6InQyXzNyd29nZTBoIiwiYWlkIjoidDJfM3J3b2dlMGgiLCJsY2EiOjE1NTc4OTg4OTQ0NDQsInNjcCI6ImVKeUtWdEpTaWdVRUFBRF9fd056QVNjIiwiZmxvIjo5fQ.dQxQ2oKy9YVQGSVUuF27nuba1-lRCox6hq3bm0zXrdfC9SUTUyrs3KHbivG-13Aznu_VLv8dcJdj7XK4V21QvPBa1iDY9kq7MRLU92-A-4tvDoUKKT1bFJXbPBzH8lidVi9tTvtUXly3J7j1Za12FuReHd1XPVZMQJA8880XhD1YQLMq8W59CjowZ7ff7ihhLGHidZNNCeA67jIxgo7F9OvxfEfc5kUuqsAQQWl1meuwFFdKE4hXXswTT1sjHCWfskeCgkLVeboVOf9hjv6rLZLhy4fGMBl8hEB_RopJPEW4umE-6kaZy2CxRjrp8S79d-X8XejDzgaCC6p55Ajn-Q");
-                requestMessage.Headers.UserAgent.Add(new ProductInfoHeaderValue("test", "1"));                
-                var response = await _httpClient.SendAsync(requestMessage) ?? throw new Exception("Post Retrieve: Failed to get response.  Response is NULL");
-                
-                if (response.IsSuccessStatusCode)
-                {
-                    if (_rateLimitChecker.NearLimitCheck(response))
-                    {
-                        await Task.Delay(TimeSpan.FromSeconds(_rateLimitChecker.RetrieverResetFromResponse(response)));
-                    }
-                    return await response.Content.ReadAsStringAsync();
+                    _token = await _authenticationService.RetrieveAuthorizationsTokenAsync();
                 }
+
+                using (var request = new HttpRequestMessage(new HttpMethod("GET"), "https://oauth.reddit.com/api/v1/me"))
+                {
+                    request.Headers.TryAddWithoutValidation("User-Agent", "ChangeMeClient/0.1 by YourUsername");
+                    request.Headers.TryAddWithoutValidation("Authorization", $"bearer {_token}");
+
+                    var response = await _httpClient.SendAsync(request) ?? throw new Exception("Post Retrieve: Failed to get response.  Response is NULL");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        if (_rateLimitChecker.NearLimitCheck(response))
+                        {
+                            await Task.Delay(TimeSpan.FromSeconds(_rateLimitChecker.RetrieverResetFromResponse(response)));
+                        }
+                        return await response.Content.ReadAsStringAsync();
+                    }
+
+                    if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized && _retrieveTokenRetries <= 3)
+                    {
+                        _retrieveTokenRetries++;
+                        _logger.LogWarning($"Posts Retrieve: Failed to retrieve posts with status code {response.StatusCode} Retry : {_retrieveTokenRetries} ");
+                        _token = string.Empty;
+                        await RetrieveSubredditPostsAsync(subreddit, startingPoint);
+                    }
+                    else
+                    {                        
+                        throw new Exception($"Posts Retrieve : Failed to get token with following Status code: {response?.StatusCode}");
+                    }
+
+                    throw new Exception($"Posts Retrieve : Failed to retrieve posts with following Status code: {response?.StatusCode}");
+                }              
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Posts retrieve : Failed to retrieve data from Reddit API");
                 throw;
-            }
-            return null;
+            }        
         }       
     }
 }

@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.Models", "Reddit.Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.APIClient", "Reddit.APIClient\Reddit.APIClient.csproj", "{43C1F9FD-6B75-44B1-82A7-EECF9BBF3760}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.Logic", "Reddit.Logic\Reddit.Logic.csproj", "{7A60245F-3EC6-4FD3-A3B8-AAF352983419}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.Logic", "Reddit.Logic\Reddit.Logic.csproj", "{7A60245F-3EC6-4FD3-A3B8-AAF352983419}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.Repository", "Reddit.Repository\Reddit.Repository.csproj", "{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reddit.Repository", "Reddit.Repository\Reddit.Repository.csproj", "{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reddit.Helper", "Reddit.Helper\Reddit.Helper.csproj", "{2318EA56-FFB9-4627-9930-44B4F2C35FC9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDAEA810-B34A-4E1B-AFC6-A809A3945A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2318EA56-FFB9-4627-9930-44B4F2C35FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2318EA56-FFB9-4627-9930-44B4F2C35FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2318EA56-FFB9-4627-9930-44B4F2C35FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2318EA56-FFB9-4627-9930-44B4F2C35FC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
