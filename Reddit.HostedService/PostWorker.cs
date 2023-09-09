@@ -13,6 +13,7 @@ namespace Reddit.HostedService
         private readonly IPostsProcessor _postProcessor;
         private readonly int _numberOfWorker;
         private readonly ILogger _logger;
+        private readonly int _delayStart;
 
         public PostWorker(Channel<Data> postChannel, IPostsProcessor postsProcessor, IConfiguration configuration, ILogger<PostWorker> logger)
         {
@@ -26,9 +27,18 @@ namespace Reddit.HostedService
             { 
                 _numberOfWorker = 1;
             }
+
+            var delayStart = Helper.Helper.GetConfigValue(configuration, "DelayStart");
+
+            if (!int.TryParse(delayStart, out _delayStart))
+            {
+                _delayStart = 5;
+            }
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 Task[] Consumer = new Task[_numberOfWorker];

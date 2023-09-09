@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Reddit.APIClient;
 using Reddit.Models;
@@ -14,12 +15,19 @@ namespace Reddit.HostedService
         private readonly Channel<Data> _postChannel;
         private readonly IPostsService _postsRetrieve;
         private readonly string _subredditName = "funny";
+        private readonly int _delayStart = 5;
 
-        public FunnySubredditWorker(ILogger<FunnySubredditWorker> logger, Channel<Data> postChannel, IPostsService postsRetrieve)
+        public FunnySubredditWorker(ILogger<FunnySubredditWorker> logger, Channel<Data> postChannel, IPostsService postsRetrieve, IConfiguration configuration)
         {
             _logger = logger;            
             _postChannel = postChannel;
             _postsRetrieve = postsRetrieve;
+            var delayStart = configuration["DelayStart"];
+
+            if (!int.TryParse(delayStart, out _delayStart))
+            {
+                logger.LogWarning("Funny Subreddit Worker : Can not get delay start value default back to 5 ");
+            }
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -32,7 +40,7 @@ namespace Reddit.HostedService
             {
                 DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
             };
-
+            await Task.Delay(TimeSpan.FromSeconds(_delayStart), stoppingToken);
 
             while (!stoppingToken.IsCancellationRequested && await _postChannel.Writer.WaitToWriteAsync(stoppingToken))
             {
