@@ -11,8 +11,7 @@ namespace Reddit.HostedService
     public class SubredditWorker : BackgroundService
     {
         private readonly ILogger<SubredditWorker> _logger;        
-        private readonly Channel<Data> _postChannel;
-        private readonly IPostsService _postsRetrieve;
+        private readonly Channel<Data> _postChannel;        
         private readonly string _subredditName = "funny";
         private readonly int _delayStart = 5;
         private readonly ISubredditService _subredditService;
