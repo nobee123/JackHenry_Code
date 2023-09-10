@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Reddit.APIClient\Reddit.APIClient.csproj" />
     <ProjectReference Include="..\Reddit.Models\Reddit.Models.csproj" />
     <ProjectReference Include="..\Reddit.Repository\Reddit.Repository.csproj" />
   </ItemGroup>

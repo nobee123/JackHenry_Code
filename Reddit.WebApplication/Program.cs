@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 
 var postChannel = Channel.CreateUnbounded<Data>();
 builder.Services.AddSingleton(postChannel);
-builder.Services.AddHostedService<FunnySubredditWorker>();
+builder.Services.AddHostedService<SubredditWorker>();
 builder.Services.AddHostedService<PostWorker>();
 
 builder.Services.AddHttpClient<IPostsService, PostsService>();
@@ -24,7 +24,7 @@ builder.Services.AddSingleton<IPostWithMostUpVotes , PostWithMostUpVotes>();
 builder.Services.AddSingleton<IUserWithMostPosts, UserWithMostPosts>();
 builder.Services.AddSingleton<IPostRepository, PostRepository>();
 builder.Services.AddSingleton<IRateLimitChecker, RateLimitChecker>();
-
+builder.Services.AddSingleton<ISubredditService, SubredditService>();
 
 var app = builder.Build();
 
