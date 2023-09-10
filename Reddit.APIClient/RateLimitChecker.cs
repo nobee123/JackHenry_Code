@@ -36,15 +36,14 @@ namespace Reddit.APIClient
         public bool NearLimitCheck(HttpResponseMessage response)
         {
             try
-            { 
-                var usedLimit = response.Headers.GetValues("X-Ratelimit-Used").FirstOrDefault();
+            {                 
                 var remainingLimit = response.Headers.GetValues("X-Ratelimit-Remaining").FirstOrDefault();
 
 
-                if (string.IsNullOrWhiteSpace(usedLimit) || string.IsNullOrWhiteSpace(remainingLimit))
+                if (string.IsNullOrWhiteSpace(remainingLimit))
                     return false;
 
-                if (Convert.ToInt32(usedLimit) + 50 > Convert.ToInt32(remainingLimit)) 
+                if (Convert.ToInt32(remainingLimit) <= 50) 
                     return true;
 
                 return false;

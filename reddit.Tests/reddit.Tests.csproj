@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Reddit.APIClient\Reddit.APIClient.csproj" />
     <ProjectReference Include="..\Reddit.Logic\Reddit.Logic.csproj" />
   </ItemGroup>
 
