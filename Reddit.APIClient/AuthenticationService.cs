@@ -41,7 +41,7 @@ namespace Reddit.APIClient
                 using (var request = new HttpRequestMessage(new HttpMethod("POST"), _url))
                 {
                     var bearToken = Convert.ToBase64String(Encoding.UTF8.GetBytes(_appId + ":" + _appSecret));
-                    request.Headers.TryAddWithoutValidation("Authorization", "Basic aDFLaHZINFRyM0YzRmZEX3laUGZpZzpSTG9rcUM1ZHFQclhWRzlIZUF6eWpVejRBVndrNkE=");
+                    request.Headers.TryAddWithoutValidation("Authorization", $"Basic {bearToken}");
                     request.Headers.Add("User-Agent", _userAgent);
 
                     var contentList = new List<string>
@@ -60,12 +60,12 @@ namespace Reddit.APIClient
                         return await response.Content.ReadAsStringAsync();
                     }
 
-                    throw new Exception($"Authentication Service : Failed to token with following Status code: {response?.StatusCode}");
+                    throw new Exception($"Authentication Service : Failed to retrieve token with following Status code: {response?.StatusCode}");
                 }
             }
             catch (Exception ex) 
             {
-                _logger.LogError(ex, "Posts retrieve : Failed to retrieve data from Reddit API");
+                _logger.LogError(ex, "Authentication Service : Failed to retrieve token for Reddit");
                 throw;
             }           
         }
