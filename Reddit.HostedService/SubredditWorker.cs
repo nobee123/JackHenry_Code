@@ -15,6 +15,7 @@ namespace Reddit.HostedService
         private readonly string _subredditName = "funny";
         private readonly int _delayStart = 5;
         private readonly ISubredditService _subredditService;
+        private readonly int _delayPerBatch = 600;
 
         public SubredditWorker(ILogger<SubredditWorker> logger, Channel<Data> postChannel, ISubredditService subredditService,  IConfiguration configuration)
         {
@@ -25,7 +26,14 @@ namespace Reddit.HostedService
 
             if (!int.TryParse(delayStart, out _delayStart))
             {
-                logger.LogWarning("Subreddit Worker : Can not get delay start value default back to 5 ");
+                logger.LogWarning("Subreddit Worker : Can not get delay start value default back to 5");
+            }
+
+            var delayPerBatch = configuration["DelayPerBatch"];
+
+            if (!int.TryParse(delayPerBatch, out _delayPerBatch))
+            {
+                logger.LogWarning("Subreddit Worker : Can not get delay per batch value default back to 600");
             }
         }
 
@@ -46,7 +54,7 @@ namespace Reddit.HostedService
                         await _postChannel.Writer.WriteAsync(item.data, stoppingToken);
                     }
 
-                    await Task.Delay(TimeSpan.FromMilliseconds(600), stoppingToken);
+                    await Task.Delay(TimeSpan.FromMilliseconds(_delayPerBatch), stoppingToken);
                 }
                 catch(Exception ex) 
                 {
