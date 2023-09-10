@@ -42,6 +42,22 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
+app.MapGet("/Top10UserWithMostPosts", (IUserWithMostPosts post) =>
+{
+
+    return post.Retrieve();
+
+
+});
+
+app.MapGet("/Top10PostWithMostUpVotes", (IPostWithMostUpVotes post) =>
+{
+
+    return post.Retrieve();
+
+
+});
+
 app.MapGet("/weatherforecast", () =>
 {
     var forecast = Enumerable.Range(1, 5).Select(index =>
