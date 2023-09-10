@@ -8,16 +8,16 @@ using System.Threading.Channels;
 
 namespace Reddit.HostedService
 {
-    public class SubredditWorker : BackgroundService
+    public class SubredditHostedService : BackgroundService
     {
-        private readonly ILogger<SubredditWorker> _logger;        
+        private readonly ILogger<SubredditHostedService> _logger;        
         private readonly Channel<Data> _postChannel;        
         private readonly string _subredditName = "funny";
         private readonly int _delayStart = 5;
         private readonly ISubredditService _subredditService;
         private readonly int _delayPerBatch = 600;
 
-        public SubredditWorker(ILogger<SubredditWorker> logger, Channel<Data> postChannel, ISubredditService subredditService,  IConfiguration configuration)
+        public SubredditHostedService(ILogger<SubredditHostedService> logger, Channel<Data> postChannel, ISubredditService subredditService,  IConfiguration configuration)
         {
             _logger = logger;            
             _postChannel = postChannel;

@@ -23,7 +23,7 @@ namespace reddit.Tests
         [Fact]
         public void FunnySubredditWorker_Channel_Should_Contain_Same_Amount_Of_Message()
         {
-            var logger = new Mock<ILogger<SubredditWorker>>();
+            var logger = new Mock<ILogger<SubredditHostedService>>();
             var channel = new Mock<Channel<Data>>();
             channel.Setup(x => x.Writer.WriteAsync(It.IsAny<Data>(), CancellationToken.None));
 

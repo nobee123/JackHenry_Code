@@ -14,8 +14,8 @@ builder.Services.AddSwaggerGen();
 
 var postChannel = Channel.CreateUnbounded<Data>();
 builder.Services.AddSingleton(postChannel);
-builder.Services.AddHostedService<SubredditWorker>();
-builder.Services.AddHostedService<PostWorker>();
+builder.Services.AddHostedService<SubredditHostedService>();
+builder.Services.AddHostedService<PostHostedService>();
 
 builder.Services.AddHttpClient<IPostsService, PostsService>();
 builder.Services.AddHttpClient<IAuthenticationService, AuthenticationService>();

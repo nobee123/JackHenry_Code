@@ -7,7 +7,7 @@ using System.Threading.Channels;
 
 namespace Reddit.HostedService
 {
-    public class PostWorker : BackgroundService
+    public class PostHostedService : BackgroundService
     {
         private readonly Channel<Data> _postChannel;
         private readonly IPostsProcessor _postProcessor;
@@ -15,7 +15,7 @@ namespace Reddit.HostedService
         private readonly ILogger _logger;
         private readonly int _delayStart;
 
-        public PostWorker(Channel<Data> postChannel, IPostsProcessor postsProcessor, IConfiguration configuration, ILogger<PostWorker> logger)
+        public PostHostedService(Channel<Data> postChannel, IPostsProcessor postsProcessor, IConfiguration configuration, ILogger<PostHostedService> logger)
         {
             _postChannel = postChannel;
             _postProcessor = postsProcessor;
