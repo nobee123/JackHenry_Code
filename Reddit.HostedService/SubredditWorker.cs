@@ -53,7 +53,7 @@ namespace Reddit.HostedService
                 }
                 catch(Exception ex) 
                 {
-                    _logger.LogError(ex, "Funny Subreddit Worker: Failed to retrieve data from Reddit");
+                    _logger.LogError(ex, "Subreddit Worker: Failed to retrieve data from Reddit");
                     throw;
                 }
             }            
