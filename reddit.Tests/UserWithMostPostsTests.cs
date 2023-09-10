@@ -6,7 +6,7 @@ using System.Collections.Concurrent;
 
 namespace reddit.Tests
 {
-    public class UserWithMostPosts_Tests
+    public class UserWithMostPostsTests
     {
         private Mock<IPostRepository> _postRepository;
 

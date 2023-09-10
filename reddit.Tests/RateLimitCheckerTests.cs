@@ -4,7 +4,7 @@ using Reddit.APIClient;
 
 namespace reddit.Tests
 {
-    public class RateLimitChecker_Tests
+    public class RateLimitCheckerTests
     {
 
         [Fact]

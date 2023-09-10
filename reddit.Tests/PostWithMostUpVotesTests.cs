@@ -6,9 +6,9 @@ using System.Collections.Concurrent;
 
 namespace reddit.Tests
 {
-    public class PostWithMostUpVotes_Tests
+    public class PostWithMostUpVotesTests
     {
-        private Mock<IPostRepository> _postRepository;
+        private Mock<IPostRepository>? _postRepository;
 
         [Fact]
         public void PostWithMostUpVotes_Should_Return_Top_10_Post_With_Most_Up_Votes()
