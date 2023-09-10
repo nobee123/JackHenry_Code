@@ -20,7 +20,7 @@ namespace Reddit.Logic
             var posts = _repository.GetPosts();
 
             var result = posts.Select(x => x.Value);
-            return result.AsParallel().OrderBy(x => x.ups).Take(10).ToList();
+            return result.AsParallel().OrderByDescending(x => x.ups).Take(10).ToList();
         }
     }
 }
