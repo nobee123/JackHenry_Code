@@ -4,8 +4,6 @@ using Microsoft.Extensions.Logging;
 using Reddit.APIClient;
 using Reddit.Logic;
 using Reddit.Models;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Channels;
 
 namespace Reddit.HostedService
