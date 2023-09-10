@@ -17,14 +17,10 @@ namespace reddit.Tests
             _postRepository = new Mock<IPostRepository>();
             _postRepository.Setup(x => x.GetPosts()).Returns(SetupPosts());
 
-
             var postWithMostUpVotes = new PostWithMostUpVotes(_postRepository.Object);
             var post = postWithMostUpVotes.Retrieve();
 
-
             Assert.True(!post.Any(x => x.id == "11"));
-
-
         }
 
         private ConcurrentDictionary<string, Data> SetupPosts()

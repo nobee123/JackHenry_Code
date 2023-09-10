@@ -2,15 +2,10 @@
 using Reddit.Logic;
 using Reddit.Models;
 using Reddit.Repository;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace reddit.Tests
-{    
+{
     public class UserWithMostPosts_Tests
     {
         private Mock<IPostRepository> _postRepository;
@@ -21,15 +16,9 @@ namespace reddit.Tests
 
             _postRepository = new Mock<IPostRepository>();
             _postRepository.Setup(x => x.GetPosts()).Returns(SetupPosts());
-
-
             var userWithMostPosts = new UserWithMostPosts(_postRepository.Object);
             var post = userWithMostPosts.Retrieve();
-
-
             Assert.True(!post.Any(x => x.author == "l"));
-
-
         }
 
         private ConcurrentDictionary<string, Data> SetupPosts()
