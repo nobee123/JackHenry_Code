@@ -76,7 +76,8 @@ namespace Reddit.HostedService
                     _logger.LogError(ex, "Funny Subreddit Worker: Failed to retrieve data from Reddit");
                     throw;
                 }
-            }
+            }            
+            _postChannel.Writer.Complete();
         }
     }
 }
