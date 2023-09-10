@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Reddit.APIClient;
 using Reddit.Logic;
 using Reddit.Models;
 using System.Threading.Channels;
