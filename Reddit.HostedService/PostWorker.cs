@@ -62,7 +62,7 @@ namespace Reddit.HostedService
 
         private Task Process(Data post)
         {
-            _logger.LogInformation($"Processing {post.ToString()}");
+            _logger.LogInformation($"Processing {post}");
             _postProcessor.ProcessPost(post);
 
             return Task.CompletedTask;

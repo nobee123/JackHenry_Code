@@ -54,6 +54,10 @@ namespace Reddit.HostedService
                     if (postData != null)
                     {
                         _logger.LogInformation($"Funny Subreddit Worker: Retrieve {postData?.data?.children?.Count}");
+                        if(postData == null) 
+                        {
+                            throw new Exception("Funny Subreddit Worker: Post data is null");
+                        }
                         startingPoint = postData.data.after;
                         foreach (var child in postData.data.children)
                         {

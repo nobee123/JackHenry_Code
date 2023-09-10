@@ -14,18 +14,7 @@
         public object before { get; set; }
         public string title { get; set; }
         public string author { get; set; }
-        public int ups { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            Data q = obj as Data;
-            return q != null && q.id == this.id;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.id.GetHashCode() ^ this.id.GetHashCode();
-        }
+        public int ups { get; set; }      
 
         public override string ToString()
         {
