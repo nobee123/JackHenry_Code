@@ -37,7 +37,7 @@ namespace Reddit.HostedService
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+            await Task.Delay(TimeSpan.FromSeconds(_delayStart), stoppingToken);
 
             while (!stoppingToken.IsCancellationRequested)
             {
