@@ -40,6 +40,8 @@ namespace reddit.Tests
                         response.StatusCode = System.Net.HttpStatusCode.OK;  
                         response.Content = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject("test")); 
                         response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                        response.Content.Headers.Add("X-Ratelimit-Reset", "40");
+                        response.Content.Headers.Add("X-Ratelimit-Remaining", "100");
                         return response;
                     });
             httpClient = new HttpClient(httpMessageHandler.Object);
@@ -61,7 +63,7 @@ namespace reddit.Tests
         }
 
         [Fact]
-        public async Task RetrieveSubredditPostsAsync_StateUnderTest_ExpectedBehavior()
+        public async Task RetrieveSubredditPostsAsync_Authorization_Token_Is_Called()
         {
             // Arrange
             var service = this.CreateService();
@@ -76,6 +78,27 @@ namespace reddit.Tests
             // Assert
 
             mockAuthenticationService.Verify(x => x.RetrieveAuthorizationsTokenAsync(), Times.Once());
+        }
+
+        [Fact]
+        public async Task RetrieveSubredditPostsAsync_Rate_Limit_Check_Should_Pass()
+        { 
+            var rateLimitChecker = new Mock<IRateLimitChecker>();
+            rateLimitChecker.Setup(x => x.NearLimitCheck(It.IsAny<HttpResponseMessage>())).Returns(false);
+
+            var postsService = new PostsService(mockConfiguration.Object, httpClient, rateLimitChecker.Object, mockLogger.Object, mockAuthenticationService.Object);
+
+            string subreddit = null;
+            string startingPoint = null;
+
+            // Act
+            var result = await postsService.RetrieveSubredditPostsAsync(
+                subreddit,
+                startingPoint);
+
+            // Assert
+
+            rateLimitChecker.Verify(x => x.RetrieverResetFromResponse(It.IsAny<HttpResponseMessage>()), Times.Never);
         }
     }
 }
