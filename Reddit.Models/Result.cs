@@ -15,7 +15,7 @@
         public string title { get; set; }
         public string author { get; set; }
         public int ups { get; set; }      
-
+        public int Count { get; set; }
         public override string ToString()
         {
             return $"Id: {id} title: {title} author: {author}";

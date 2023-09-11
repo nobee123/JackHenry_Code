@@ -12,7 +12,7 @@ namespace Reddit.Logic
     public class SubredditService : ISubredditService
     {
         private readonly ILogger<SubredditService> _logger;
-        private string startingPoint = "";
+        private string _startingPoint = "";
         private IPostsService _postsService;
         public SubredditService(ILogger<SubredditService> logger, IPostsService postsRetrieve)         
         {
@@ -22,7 +22,7 @@ namespace Reddit.Logic
 
         public async Task<Child> ProcessAsync(string subredditName)
         {
-            var result = await _postsService.RetrieveSubredditPostsAsync(subredditName, startingPoint);
+            var result = await _postsService.RetrieveSubredditPostsAsync(subredditName, _startingPoint);
 
             var postData = JsonSerializer.Deserialize<Child>(result);
 
@@ -33,7 +33,7 @@ namespace Reddit.Logic
                 {
                     throw new Exception($"{subredditName} Subreddit Worker: Post data is null");
                 }
-                startingPoint = postData.data.after;
+                _startingPoint = postData.data.after;
                 return postData;
             }
             else

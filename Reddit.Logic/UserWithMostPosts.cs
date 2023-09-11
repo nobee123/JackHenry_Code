@@ -19,13 +19,15 @@ namespace Reddit.Logic
         {
             var postDictionary =_repository.GetPosts();
 
-            var result = postDictionary.Select(x => x.Value);         
+            var result = postDictionary.Select(x => x.Value);
+
+            var testing = result.Where(x => x.author == "RealMundiRiki");
 
             return result.AsParallel()
                                .GroupBy(x => x.author)
                                .OrderByDescending(c => c.Count())
                                .Take(10)
-                               .Select(group => new Data { author = group.Key  })
+                               .Select(group => new Data { author = group.Key, Count = group.Count()  })
                                .ToList();           
         }
     }
