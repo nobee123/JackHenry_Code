@@ -19,9 +19,7 @@ namespace Reddit.Logic
         {
             var postDictionary =_repository.GetPosts();
 
-            var result = postDictionary.Select(x => x.Value);
-
-            var testing = result.Where(x => x.author == "RealMundiRiki");
+            var result = postDictionary.Select(x => x.Value);            
 
             return result.AsParallel()
                                .GroupBy(x => x.author)
