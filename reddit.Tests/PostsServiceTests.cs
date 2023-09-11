@@ -19,9 +19,9 @@ namespace reddit.Tests
 
         public PostsServiceTests()
         {
-            this.mockRepository = new MockRepository(MockBehavior.Loose);
+            mockRepository = new MockRepository(MockBehavior.Loose);
 
-            this.mockConfiguration = this.mockRepository.Create<IConfiguration>();
+            mockConfiguration = mockRepository.Create<IConfiguration>();
 
             mockConfiguration.Setup(x => x["SubredditAPIUrl"]).Returns("http://Testing.com");
             mockConfiguration.Setup(x => x["UserAgent"]).Returns("test");
@@ -45,9 +45,9 @@ namespace reddit.Tests
                         return response;
                     });
             httpClient = new HttpClient(httpMessageHandler.Object);
-            this.mockRateLimitChecker = this.mockRepository.Create<IRateLimitChecker>();
-            this.mockLogger = this.mockRepository.Create<ILogger<PostsService>>();
-            this.mockAuthenticationService = this.mockRepository.Create<IAuthenticationService>();
+            mockRateLimitChecker = mockRepository.Create<IRateLimitChecker>();
+            mockLogger = mockRepository.Create<ILogger<PostsService>>();
+            mockAuthenticationService = mockRepository.Create<IAuthenticationService>();
             mockAuthenticationService.Setup(x => x.RetrieveAuthorizationsTokenAsync()).Returns(Task.FromResult("{\"access_token\": \"token\", \"token_type\": \"bearer\", \"expires_in\": 86400, \"scope\": \"*\"}\n"));
                 
         }
@@ -66,7 +66,7 @@ namespace reddit.Tests
         public async Task RetrieveSubredditPostsAsync_Authorization_Token_Is_Called()
         {
             // Arrange
-            var service = this.CreateService();
+            var service = CreateService();
             string subreddit = null;
             string startingPoint = null;
 
